@@ -1,0 +1,505 @@
+<!--
+Google IO 2012 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Devfest 2012</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:7em; font-size:40px">
+        Arquitectura Lambda?
+      </div>
+    </article>
+  </slide>
+ 
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:7em; font-size:40px">
+        No solo se trata de que la aplicación escale tecnológicamente
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:7em; font-size:40px">
+        Ejemplo: Track Pageview + Top 100
+      </div>
+    </article>
+  </slide>
+  
+  <slide>
+    <hgroup>
+      <h2>Ejemplo: Track Pageviews</h2>
+    </hgroup>
+    <article>
+      <table>
+        <tr>
+          <th>Columna</th><th>Tipo</th>
+        </tr>
+        <tr>
+          <td>id</td><td>integer</td>
+        </tr>
+        <tr>
+          <td>user_id</td><td>integer</td>
+        </tr>
+        <tr>
+          <td>url</td><td>varchar(255)</td>
+        </tr>
+        <tr>
+          <td>pageviews</td><td>bigint</td>
+        </tr>
+
+      </table>
+
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Ejemplo: Track Pageviews</h2>
+      <h3>Escalando con una cola</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/queue.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Ejemplo: Track Pageviews</h2>
+      <h3>Particiones horizontales</h3>
+    </hgroup>
+    <article>
+      <img src="images/shard.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Ejemplo: Track Pageviews</h2>
+      <h3>Tolerancia a fallos</h3>
+    </hgroup>
+    <article>
+      <img src="images/failover.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Ejemplo: Track Pageviews</h2>
+      <h3>Corrupción de datos</h3>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/bugs.jpg" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:7em; font-size:40px">
+        Mutabilidad
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>(In)mutabilidad</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/mutable.png" alt="Description" title="Description">
+    </article>
+    
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>(In)mutabilidad</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/inmutable.png" alt="Description" title="Description">
+    </article>
+    
+  </slide>
+  
+   <slide>
+    <hgroup>
+      <h2>(In)mutabilidad</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>Event Sourcing, Martin Fowler</li>
+        <li>Rich Hickey</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:7em; font-size:40px">
+        NoSQL como un cambio de paradigma
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:7em; font-size:40px">
+        Que es lo que hace un sistema de datos?
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Ejemplos</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Cuantas pageviews hubo el 5 de abril?</li>
+        <li>Cual fue el top 100 de la segunda semana de enero?</li>
+        <li>Cuantos visitantes únicos hubo el 24 de diciembre?</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:6em; font-size:40px">
+          Devolvemos algo que guardamos, otras veces necesitamos hacer agregaciones, transformaciones, etc.
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:7em; font-size:40px">
+        <span class="blue2">query</span> = <span class="green2">function</span>(<span class="red2">all data</span>)
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Ejemplo</h2>
+    </hgroup>
+    <article>
+      <pre class="prettyprint" data-lang="java">
+        public long getPageViews(List&lt;Data&gt;allData, URL url, long start, long offset) {
+          long count = 0;
+          for (Data data: allData) 
+             if (data.url == url &&
+                 data.timestamp &gt;= start &&
+                 data.timestamp &lt;= start + offset)
+                     count++;        
+        
+          return count;
+        }
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Un poco lento...</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/slow.jpg" alt="Description" title="Description">
+    </article>
+    
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Precomputando la vista</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/batch_layer.png" alt="Description" title="Description">
+    </article>
+   
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Precomputando la vista</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/batch_layer_1.png" alt="Description" title="Description">
+    </article>
+   
+  </slide> 
+
+  <slide>
+    <hgroup>
+      <h2>Precomputando la vista</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/batch_layer_2.png" alt="Description" title="Description">
+    </article>
+   
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Precomputando la vista</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/batch_layer_3.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:6em; font-size:40px">
+        Procesamiento batch.
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:6em; font-size:40px">
+        MapReduce es un framework que puede calcular funciones arbitrarias en data arbitraria. 
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>MapReduce</h2>
+    </hgroup>
+    <article>
+
+      <pre class="prettyprint" >
+map(list) {
+  foreach element in list {
+    tuple = function(element)
+    intermediateResult.add(tuple)
+  }
+} 
+
+reduce(function, list, init) {
+  result = init
+  foreach value in list {
+    result = function(result, value)
+  }
+  outputResult.add(result)
+}
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+
+    <hgroup>
+      <h2>MapReduce</h2>
+    </hgroup>
+
+    <article>
+      <img src="images/mapreduce_example.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>MapReduce</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/mapreduce.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Propiedades</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Simple</li>
+        <li>Escala</li>
+        <li>Fault-Tolerant</li>
+        <li>Human-Tolerant</li>
+        <li>Extensible</li>
+      </ul>
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:6em; font-size:40px">
+        Que pasa con lo que los procesos batch no cubren?
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:6em; font-size:40px">
+        Necesitamos precomputar las vistas de las ultimas horas.
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <article>
+      <div class="centered" style="margin-top:6em; font-size:40px">
+        Vistas en Tiempo Real
+      </div>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tiempo real</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/speed_layer.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Storm</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/topology.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Storm</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/topology-tasks.png" alt="Description" title="Description">
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Merge</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/merge.png" alt="Description" title="Description">
+    </article>
+  </slide>  
+
+  <slide>
+    <hgroup>
+      <h2>Arquitectura Lambda</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/lambda.png" alt="Description" title="Description">
+    </article>
+  </slide>  
+
+  <slide>
+    <hgroup>
+      <h2>Arquitectura Lambda</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/lambda_1.png" alt="Description" title="Description">
+    </article>
+  </slide>  
+
+  <slide>
+    <hgroup>
+      <h2>Arquitectura Lambda</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/lambda_2.png" alt="Description" title="Description">
+    </article>
+  </slide>  
+
+  <slide>
+    <hgroup>
+      <h2>Arquitectura Lambda</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/lambda_3.png" alt="Description" title="Description">
+    </article>
+  </slide>  
+  <slide>
+    <hgroup>
+      <h2>Arquitectura Lambda</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/lambda_4.png" alt="Description" title="Description">
+    </article>
+  </slide>  
+  <slide>
+    <hgroup>
+      <h2>Arquitectura Lambda</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/lambda_5.png" alt="Description" title="Description">
+    </article>
+  </slide>  
+
+  <slide>
+    <hgroup>
+      <h2>Arquitectura Lambda</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/lambda_6.png" alt="Description" title="Description">
+    </article>
+  </slide>  
+
+  <slide>
+    <hgroup>
+      <h2>Arquitectura Lambda</h2>
+    </hgroup>
+    <article class="flexbox vcenter">
+      <img src="images/lambda_7.png" alt="Description" title="Description">
+    </article>
+  </slide>  
+
+
+
+  <slide class="logoslide dark nobackground">
+    <article class="flexbox vcenter">
+      <span>Gracias! :-)</span>
+    </article>
+  </slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+
+</body>
+</html>

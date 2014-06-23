@@ -1,0 +1,469 @@
+<!--
+Google IO 2012/2013 HTML5 Slide Template
+
+Authors: Eric Bidelman <ebidel@gmail.com>
+         Luke Mahé <lukem@google.com>
+
+URL: https://code.google.com/p/io-2012-slides
+-->
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">-->
+  <!--<meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+  <!--This one seems to work all the time, but really small on ipad-->
+  <!--<meta name="viewport" content="initial-scale=0.4">-->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="stylesheet" media="all" href="theme/css/default.css">
+  <link rel="stylesheet" media="only screen and (max-device-width: 480px)" href="theme/css/phone.css">
+  <base target="_blank"> <!-- This amazingness opens all links in a new tab. -->
+  <script data-main="js/slides" src="js/require-1.0.8.min.js"></script>
+</head>
+<body style="opacity: 0">
+
+<slides class="layout-widescreen">
+
+  <slide class="title-slide segue nobackground">
+    <aside class="gdbar"><img src="images/google_developers_icon_128.png"></aside>
+    <!-- The content of this hgroup is replaced programmatically through the slide_config.json. -->
+    <hgroup class="auto-fadein">
+      <h1 data-config-title><!-- populated from slide_config.json --></h1>
+      <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
+      <p data-config-presenter><!-- populated from slide_config.json --></p>
+    </hgroup>
+  </slide>
+
+  <!-- OLAP -->
+  <slide>
+    <hgroup>
+      <h2>OLAP Introducción</h2>
+    </hgroup>
+    <article>
+
+      <p class="blue">OLTP – Online Transaction Processing</p>
+
+      <ul class="build">
+        <li>Transacciones simples</li>
+        <li>Consultas Simples</li>
+        <li>Modificaciones partes pequeñas de datos</li>
+        <li>Modificaciones frecuentes</li>
+      </ul>
+
+
+      <p class="blue"> OLAP – Online Analytical Processing </p>
+      <ul class="build">
+        <li>Transacciones complejas</li>
+        <li>Consultas complejas</li>
+        <li>Modificaciones partes grandes de datos</li>
+        <li>Modificaciones no tan frecuentes</li>
+      </ul>
+
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>OLAP Introducción</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>La implementación de un modelo dimensional en una RDBM es un esquema estrella, en una base de datos multidimensional es un cubo OLAP</li>
+        <li>Un esquema estrella en una RDBM es una buena base para construir un cubo OLAP</li>
+      </ul>
+      <span style="centered">
+        <img src="images/StarVsCube.png" alt="Description" title="Description" />
+      </span>
+
+    </article>
+
+  </slide>
+
+    <slide>
+      <hgroup>
+        <h2>Tabla de Hechos</h2>
+      </hgroup>
+
+      <article>
+        <ul class="build">
+          <li>Los hechos representan medidas del negocio. Cada fila representa un evento medido en cierta granularidad</li>
+          <li>La idea de que cada evento en el mundo físico tiene una relación uno-a-uno con las tablas de hechos es fundacional en términos del modelo dimensional.</li>
+          <li>Los hechos más útiles generalmente son numéricos y aditivos</li>
+          <li>Las medidas <i>textuales</i> generalmente es la descripción de algo más, y termina siendo una dimensión.</li>
+          <li>Usualmente las PK de la tabla de hechos es compuesta por varias FK de las tablas de dimensiones </li>
+        </ul>
+      </article>
+
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tabla de hechos</h2>
+    </hgroup>
+
+    <article class="flexbox vcenter">
+      <img src="images/Facts.png" alt="Description" title="Description">
+      <footer class="source">Eventos del proceso del negocio transformados en una tabla de hechos</footer>
+    </article>
+
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tabla de dimensiones</h2>
+    </hgroup>
+
+    <article>
+      <ul class="build">
+        <li>Describen: quién, qué, dónde, cuándo, cómo, por qué</li>
+        <li>No es poco común que las tablas de dimensiones tengan de 50 a 100 columnas. Generalmente tienen menos cardinalidad que las tablas de hechos</li>
+        <li>Juegan un rol fundamental: Son las restricciones por las cuales se van a generar todos los reportes</li>
+        <li>Hay un dilema constante: si un valor numérico es un Hecho o una Dimensión </li>
+        <li>Las tablas de dimensiones usualmente representan una relación de jerarquía</li>
+        <li>Altamente de-normalizada</li>
+    </ul>
+    </article>
+
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tabla de dimensiones</h2>
+    </hgroup>
+
+    <article class="flexbox vcenter">
+      <img src="images/Dimensions.png" alt="Description" title="Description">
+      <footer class="source">Las tablas de dimensión contienen características descriptivas</footer>
+    </article>
+
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Tabla de dimensiones</h2>
+    </hgroup>
+
+    <article class="flexbox vcenter">
+      <img src="images/DimensionData.png" alt="Description" title="Description">
+      <footer class="source">Ejemplo de filas de una tablas de dimensión denormalizada</footer>
+    </article>
+
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>Hechos + Dimensiones</h2>
+    </hgroup>
+    <article>
+      <ul class="build">
+        <li>Cualquier proceso del negocio puede ser representado por el modelo dimensional, esto es simplemente una tabla de hechos rodeada de las dimensiones.</li>
+        <li>El modelo dimensional (hechos + dimensiones) se acomoda muy bien al cambio</li>
+      </ul>
+      <span style="centered">
+        <img src="images/StarSchema.png" alt="Description" title="Description" />
+      </span>
+    </article>
+
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Hechos + Dimensiones</h2>
+    </hgroup>
+
+    <article class="flexbox vcenter">
+      <img src="images/DimensionAndFact.png" alt="Description" title="Description">
+    </article>
+
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Algo de biografía</h2>
+    </hgroup>
+    <article>
+      <ul>
+        <li>The Data Warehouse Toolkit: The Definitive Guide to Dimensional Modeling by Ralph Kimball </li>
+        <li>Golfarelli - Applying vertical fragmentation techniques in logical design of Multidimensional Databases</li>
+        <li>Hurtado - Maintaining data cubes under dimension updates</li>
+      </ul>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>OLAP - Consultas</h2>
+    </hgroup>
+
+    <article>
+      <p class="red"> Tabla - Modelo dimensional </p>
+
+      <ul>
+        <li>Sales(storeId, itemId, custId, qty, price)</li>
+        <li>Store(storeID, city, state)</li>
+        <li>Item(itemId, category, brand, color, size)</li>
+        <li>Customer(custId, name, address) </li>
+      </ul>
+
+     <p class="red"> Acciones </p>
+
+      <ul>
+        <li>Join</li>
+        <li>Filter</li>
+        <li>Group</li>
+        <li>Agregate</li>
+      </ul>
+
+      </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Drill down</h2>
+      <h3>Examinando data agregada, partiéndolo por atributo.</h3>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="sql">
+        Select state, brand, Sum(qty*price)
+        From Sales F, Store S, Item I
+        Where F.storeId = S.storeId And F.itemID = I.itemId
+        Group By state, brand
+      </pre>
+
+      <p> --&gt; Drill Down </p>
+
+      <pre class="prettyprint" data-lang="sql">
+        Select state, category, brand, Sum(qty*price)
+        From Sales F, Store S, Item I
+        Where F.storeId = S.storeId And F.itemID = I.itemId
+        Group By state, category, brand
+      </pre>
+    </article>
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>Roll Up</h2>
+      <h3>Examinando data agregada, partiéndolo por atributo.</h3>
+    </hgroup>
+
+    <article>
+      <pre class="prettyprint" data-lang="sql">
+        Select state, brand, Sum(qty*price)
+        From Sales F, Store S, Item I
+        Where F.storeId = S.storeId And F.itemID = I.itemId
+        Group By state, brand
+      </pre>
+
+      <p> --&gt; RollUp </p>
+
+      <pre class="prettyprint" data-lang="sql">
+        Select brand, Sum(qty*price)
+        From Sales F, Store S, Item I
+        Where F.storeId = S.storeId And F.itemID = I.itemId
+        Group By brand
+      </pre>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>ETL</h2>
+      <h3>34 subsistemas</h3>
+    </hgroup>
+
+    <article>
+      <ul>
+        <li><b>La extracción.</b> La recopilación de datos en crudo de los sistemas de origen y por lo general, la escritura en el disco del entorno del ETL antes de que cualquier reestructuración significativa de la los datos se lleva a cabo. Subsistemas del 1 al 3 de apoyo al proceso de extracción</li>
+        <li><b>Limpieza y ajustado</b>. El envío de los datos crudos a través de una serie de procesos del ETL para mejorar la calidad de los datos, la fusión de los datos de dos o más fuentes, ajustar las dimensiones y las métricas. Los subsistemas de 4 a 8 esta encargados de esta etapa.</li>
+        <li><b>La entrega</b>. Estructuración física y la carga en los modelos dimensionales en el destino. Subsistemas de 9 a 21 proporcionan la capacidades para la entrega de los datos para el servidor.</li>
+        <li><b>Gestión</b>. La gestión de los sistemas y procesos relacionados al medio ambiente del ETL de una manera coherente. Subsistemas de 22 a 34 describen los componentes necesarios para apoyar la gestión en las diferentes etapas del sistema de ETL.</li>
+      </ul>
+    </article>
+
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ETL - Extracción</h2>
+      <h3>Subsistema 1: Data Profiling</h3>
+    </hgroup>
+
+    <article>
+      <ul>
+        <il>Data profiling, es el análisis técnico de los datos para describir su contenido, consistencia, y estructura. En cierto sentido, toda vez que se realiza una consulta <b>SELECT DISTINCT</b> en una en cierto modo se esta haciendo data profiling.</il>
+        <il>Provee al equipo con una orientacion en cuanto a la cantidad de datos que van a ser necesarios limpiar, y ser posteriormente ajustados.</il>
+      </ul>
+    </article>
+
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ETL - Extracción</h2>
+      <h3>Subsistema 2: Change Data Capture System (Delta)</h3>
+    </hgroup>
+
+    <article>
+      <ul>
+        <li>Simplemente es un sistema que transifiere los datos que han cambiado desde la última carga</li>
+        <li>Aislar la fuente de datos modificados para permitir el procesamiento selectivo en lugar de una actualización completa.</li>
+        <li>Captura todos los cambios (DELETE, UPDATE, INSERT) introducida en los datos de origen, incluidos los cambios realizados a través de interfaces no estándar.</li>
+        <li>Marcar los cambios de los datos datos con los códigos para distinguir las correcciones de errores de actualizaciones. </li>
+      </ul>
+    </article>
+
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ETL - Extracción</h2>
+      <h3>Subsistema 3: Extract System</h3>
+    </hgroup>
+
+    <article>
+      <ul>
+        <li>La situación más común es que cada fuente puede estar en un un medio ambiente.</li>
+        <li>Hay dos metodos para extraer datos, desde archivos y desde un flujo (stream)</li>
+      </ul>
+    </article>
+
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>ETL - Limpieza y ajustado</h2>
+    </hgroup>
+
+    <article>
+      <ul>
+        <li><b>4: Data cleasing system</b> el proceso de limpieza de datos ETL se utiliza para corregir los datos sucios, capturar la calidad y medirla. <b>Quality Screens</b> Funcionan como filtros que realizan test contra el flujo de información</li>
+        <li><b>5: Error Event Schema</b> es un esquema dimensional centralizado cuyo objetivo es registrar cada evento de error producido por una <b>Quality Screens</b> en cualquier parte del pipeline del ETL.</li>
+        <li><b>6: Audit Dimension Assembler</b>. Audit Dimesion es una dimensión que se genera por el ETL por cada tabla de hechos y matiene un registro de metadatos sobre cada row.</li>
+        <li><b>7: Deduplication System</b>. En un entorno donde hay muchas fuentes de origen es fundamental poder detectar duplicados.</li>
+        <li><b>8: Conforming System</b>. Es el responsable de consolidar y distribuir las dimensiones</li>
+      </ul>
+    </article>
+
+  </slide>
+
+
+<!--
+  <slide>
+    <hgroup>
+      <h2>ETL - Prepararlo para la presentación</h2>
+    </hgroup>
+
+    <article>
+      <ul>
+        <li>Debe determinar como proceder con los cambios de las dimensiones, que ya estaban guaradas en el DW</li>
+        <li>Cuando un DW detecta que una fila de una dimensión hay tres respuestas básicas, 'sobreescribir' (Tipo 1), agregar una 'fila' (Tipo 2) o una 'columna' (Tipo 3)</li>
+      </ul>
+      <li><b>Tipo 1:Sobreescribir</b>: Esto ocurre cuando una fila que representa una dimensión cambia, usualmente cuando no se quiere tener registro del cambio como tal, sino sería un cambio de tipo 2. Este tipo de actualizaciónes invalida las agregaciones de la columna que se sobreescribio.</li>
+      <li><b>Tipo 2: Una nueva Fila: Gracias al subsistema 2 podemos usar algún mecanismo de checksum para verificar que filas cambiaron</b></li>
+    </article>
+
+  </slide>
+-->
+
+  <slide>
+    <hgroup>
+      <h2>ETL - Prepararlo para la presentación</h2>
+    </hgroup>
+
+    <article>
+      <ul>
+        <li><b>9: Slowly Changing Dimension Manager</b>. Debe determinar como proceder con los cambios de las dimensiones. Cuando una dimensión cambia, hay tres respuestas básicas, 'sobreescribir', agregar una 'fila' o una 'columna'</li>
+        <li><b>10: Surrogate Key Generator</b>. Es importante poder definir claves para las dimensiones en el proceso de ETL. </li>
+        <li><b>11: Hierarchy Manager</b>. Se utiliza para manejar las jerarquías tantos de-normalizadas como las normalizadas (Snowflakes)</li>)
+        <li><b>12: Special Dimensions Manager</b>. Es donde se manejan las dimensiones que requieran un tratamiento especial dentro del ETL, como por ejemplo Date/Time, o dimesiones manejadas por el usuario.</li>
+      </ul>
+    </article>
+
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ETL - Prepararlo para la presentación</h2>
+      <h3>Subsistema 13: Fact Table Builders</h3>
+   </hgroup>
+
+    <article>
+      <p>Se encarga de construir los tres tipos primarios de tabla de hechos</p>
+      <ul>
+        <li><b>Transaction FTL</b>. La granularidad de un evento medido en un instante. Por ejemplo cuando una cajera de supermercado pasa un ítem por el Scanner.</li>
+        <li><b>Periodic Snapshot FTL</b>. La granularidad esta representa un conjunto de medidas, por ejemplo el saldo de una cuenta bancaria mensual.</li>
+        <li><b>Accumulating Snapshot FTL</b>. Representa el estado actual de un evento que cambia y que tiene un principio y un final finito. Cualquier proceso que pueda ser representado con una maquina de estados finito es un buen ejemplo</li>
+      </ul>
+    </article>
+  </slide>
+
+
+  <slide>
+    <hgroup>
+      <h2>ETL - Prepararlo para la presentación</h2>
+    </hgroup>
+
+    <article>
+      <ul>
+        <li><b>14: Surrogate Key Pipeline </b>. Está encargado de reemplazar las NaturalKeys por claves suplentes.</li>
+        <li><b>15: Multivalued Dimension Bridge Table Builder</b>. Cuando es necesario acceder a valores de otra granularidad, para acceder a este conjunto de valores se hace a través de una tabla bridge.</li>
+        <li><b>16: Late Arriving Data Handler</b>. Cuando los hechos y las dimensiones no llegan al mismo tiempo este subsistema se encarga de manejar este caso.</li>
+        <li><b>17: Dimension Manager System</b>. Es el subsistema que centraliza y prepara la publicación de las dimensiones.</li>
+        <li><b>18: Fact Provider System</b>. Recibe las dimensiones, y se encarga de administrar las tabla de hechos. </li>
+        <li>Los subsistemas 19,20 y 21 son respectivamente: Aggregate Builder, OLAP Cube Builder, Data Propagation</li>
+     </ul>
+    </article>
+
+  </slide>
+
+  <slide>
+    <hgroup>
+      <h2>ETL - Manejando el entorno del ETL</h2>
+    </hgroup>
+
+    <article>
+      <p>Todo el proceso de ETL no tendrá sentido si no se lo administra de manera adecuada, para eso es importante destacar estos criterios</p>
+      <ul>
+
+        <li><b>Confiabilidad</b>. Los procesos ETL se deben ejecutar de forma coherente, deben correr y completarse. </li>
+        <li><b>Disponibilidad</b>. El almacén de datos debe cumplir con sus acuerdos de nivel de servicio (SLAs). El almacén deberá estar listo y disponible según lo prometido.</li>
+        <li><b>Administrabilidad</b>. Un almacén de datos con éxito nunca termina. Constantemente crece
+y cambia al mismo tiempo que cambia negocio. Los procesos ETL necesitan con evolucionar también.</li>
+      </ul>
+    </article>
+
+    <p>Los subsistemas que van del 22 al 34 son los siguientes: Job Scheduler, Backup System , Recovery and Restart System, Version Control System, Version Migration System, Work flow Monitor, Sorting System , Lineage and Dependency Analyzer, Problem Escalation System, Parallelizing/Pipelining System , Security System , Compliance Manager, Metadata Repository Manager.</p>
+
+  </slide>
+
+
+  <slide class="backdrop"></slide>
+
+</slides>
+
+<script>
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-XXXXXXXX-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<!--[if IE]>
+  <script src="http://ajax.googleapis.com/ajax/libs/chrome-frame/1/CFInstall.min.js"></script>
+  <script>CFInstall.check({mode: 'overlay'});</script>
+<![endif]-->
+</body>
+</html>
